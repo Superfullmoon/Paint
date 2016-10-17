@@ -5,17 +5,19 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  * Listener pour gérer la souris dans la zone de dessin
  */
 public class DrawingMouseListener implements MouseMotionListener, MouseListener {
 	Drawing drawing;
-	Shape currentShape = null;
+	ComposantShape currentShape = null;
 	double deltaX;
 	double deltaY;
+	Point depart;
 	
-	public DrawingMouseListener(Drawing d){
+	public DrawingMouseListener(Drawing d) {
 		drawing = d;
 	}
 	
@@ -23,14 +25,12 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 	 * Bouge la forme sélectionnée (si une forme est sélectionnée)
 	 */
 	public void mouseDragged(MouseEvent e) {
-		if(currentShape != null){
-			double x = e.getPoint().getX() - deltaX;
-			double y = e.getPoint().getY() - deltaY;
+		if(currentShape != null) {
+			deltaX = e.getPoint().getX() - depart.getX();
+			deltaY = e.getPoint().getY() - depart.getY();
+			depart.setLocation(e.getPoint());
 			
-			Point origin = new Point();
-			origin.setLocation(x,y);
-			
-			currentShape.setOrigin(origin);			
+			currentShape.displace(deltaX, deltaY);
 			drawing.repaint();
 		}
 	}
@@ -39,15 +39,10 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 	 * Sélectionne la forme sur laquelle l'utilisateur a cliqué
 	 */
 	public void mousePressed(MouseEvent e) {
-		for(Shape s : drawing){
-			if(s.isOn(e.getPoint())){
-				currentShape = s;
-				deltaX = e.getPoint().getX() - currentShape.getOrigin().getX();
-				deltaY = e.getPoint().getY() - currentShape.getOrigin().getY();
-				
-				break;
-				
-				
+		for(ComposantShape cs : drawing) {
+			if(cs.isOn(e.getPoint())) {
+				this.currentShape = cs;
+				depart = e.getPoint();
 			}
 		}
 	}
@@ -57,6 +52,7 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 	 */
 	public void mouseReleased(MouseEvent e) {
 		currentShape = null;
+		
 	}
 
 	public void mouseMoved(MouseEvent e) {

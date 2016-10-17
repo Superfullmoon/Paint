@@ -8,30 +8,30 @@ import java.awt.event.*;
 /**
  * JPanel pouvant afficher des objets de type Shape
  */
-public class Drawing extends JPanel implements Iterable<Shape> {
+public class Drawing extends JPanel implements Iterable<ComposantShape> {
 
 	private static final long serialVersionUID = 1L;
 	
-	ArrayList<Shape> shapes;
+	private ArrayList<ComposantShape> shapes;
 	ArrayList<ObserverDrawing> ObserverDrawings;
 	
 	public Drawing(){
 		super();
-		shapes = new ArrayList<Shape>();
+		shapes = new ArrayList<ComposantShape>();
 		ObserverDrawings = new ArrayList<ObserverDrawing>();
 	}
 	
 	/**
 	 * Implémentation de l'interface Iterable<Shape>
 	 */
-	public Iterator<Shape> iterator(){
+	public Iterator<ComposantShape> iterator(){
 		return shapes.iterator();
 	}
 	
 	/**
 	 * Ajoute une forme au dessin et redessine
 	 */
-	public void addShape(Shape s){
+	public void addShape(ComposantShape s){
 		shapes.add(s);
 		this.repaint();
 		this.notifyObservers();
@@ -42,7 +42,7 @@ public class Drawing extends JPanel implements Iterable<Shape> {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for(Shape s : shapes){
+		for(ComposantShape s : shapes){
 			s.paint(g);
 		}
 	}

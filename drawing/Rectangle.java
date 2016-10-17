@@ -46,7 +46,7 @@ public class Rectangle extends Shape {
 	}
 	
 	public String toString() {
-		String chaine = "[\n";
+		String chaine = "Rectangle [\n";
 		chaine += "  width : " + width;
 		chaine += "\n  height : " + height;
 		chaine += "\n  center : " + center;

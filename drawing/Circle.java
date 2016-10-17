@@ -30,7 +30,7 @@ public class Circle extends Shape{
 	}
 	
 	public String toString() {
-		String chaine = "[\n";
+		String chaine = "Circle [\n";
 		chaine += "  radius : " + radius;
 		chaine += "\n  center : " + center;
 		chaine += "\n  origin : " + origin;
