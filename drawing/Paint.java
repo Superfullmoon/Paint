@@ -66,7 +66,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU1
-		this.test_3();
+		this.test_5();
 	}
 	
 	// Test pour vérifier la fonction calculOrigin()
@@ -175,10 +175,29 @@ public class Paint {
 		drawing.print();
 	}
 	
+	// Test pour associer deux groupes
+	public void test_5() {
+		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
+		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
+		Shape circle1 = new Circle(new Point(320, 110), 60, Color.green);
+		
+		drawing.addShape(rectangle1);
+		drawing.addShape(rectangle2);
+		drawing.addShape(circle1);
+		
+		ShapeGroup group1 = new ShapeGroup(drawing);
+		group1.add(rectangle1);
+		group1.add(rectangle2);
+		
+		ShapeGroup group2 = new ShapeGroup(drawing);
+		group2.add(circle1);
+		group2.add(rectangle2);
+		group2.add(group1);
+		group2.afficher();
+	}
+	
 	public static void main(String[] args){
 		Paint app = new Paint();
 		app.run();
-		
-		
 	}
 }

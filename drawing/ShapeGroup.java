@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.awt.Point;
 import java.awt.Graphics;
 
-public class ShapeGroup extends Shape  {
-	ArrayList<Shape> shapes = new ArrayList<Shape>();
+public class ShapeGroup extends Shape implements Iterable<Shape> {
+	ArrayList<Shape> shapes = new ArrayList<Shape>();	// Utilisation d'un hashset ?
 	static int count = 0;
 	int id;
 	
@@ -29,7 +29,7 @@ public class ShapeGroup extends Shape  {
 		}
 	}
 	
-	public Iterator<Shape> iterator() {
+	public Iterator<Shape> iterator(){
 		return shapes.iterator();
 	}
 	
@@ -57,20 +57,20 @@ public class ShapeGroup extends Shape  {
 		}
 	}
 	
-	public void add(Shape c) {
-		boolean exist = false;
-		for(Shape it : shapes) {
-			if(c == it) {
-				exist = true;
-			}
-		}
-		
-		if(exist) {
-			System.out.println("Shape exists already in this group.");
-		} else {
-			shapes.add(c);
+	public void add(Shape shape) {
+		if(!this.contains(shape)) {
+			shapes.add(shape);
 		}
 	}
+	
+	public void add(ShapeGroup shapeGroup) {
+		for(Shape shape : shapeGroup) {
+			if(!this.contains(shape)) {
+				shapes.add(shape);
+			}
+		}
+	}
+	
 	public void remove(Shape c) {
 		shapes.remove(c);
 	}
