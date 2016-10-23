@@ -61,7 +61,7 @@ public class Paint {
 		circleButton.addActionListener(new CircleButtonListener(drawing));
 		rectangleButton.addActionListener(new RectangleButtonListener(drawing));
 		
-		associateButton.addActionListener(new AssociateButtonListener(drawing));
+		associateButton.addActionListener(new AssociateButtonListener(drawing, associateButton));
 		
 		// dissociateButton.addActionListener();
 		
@@ -75,8 +75,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU1
-		this.test_3();
-		
+		this.test_5();
 	}
 	
 	/*
@@ -96,7 +95,7 @@ public class Paint {
 		drawing.addShape(rectangle2);
 		drawing.addShape(circle1);
 		
-		GroupShape group1 = new GroupShape(drawing);
+		ShapeGroup group1 = new ShapeGroup(drawing);
 		group1.add(rectangle1);
 		System.out.println(group1.calculOrigin());
 		
@@ -109,7 +108,7 @@ public class Paint {
 	}
 	
 	/*
-	 *	Test pour vérifier que la fonction d'ajout d'un composantShape ne permet pas les doublons
+	 *	Test pour vérifier que la fonction d'ajout d'un Shape ne permet pas les doublons
 	*/
 	public void test_2() {
 		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
@@ -125,7 +124,7 @@ public class Paint {
 		drawing.addShape(rectangle2);
 		drawing.addShape(circle1);
 		
-		ComposantShape group1 = new GroupShape(drawing);
+		ShapeGroup group1 = new ShapeGroup(drawing);
 		System.out.println("Ajouts de formes déjà présentes dans le groupe.");
 		group1.add(rectangle1);
 		group1.add(rectangle2);
@@ -142,18 +141,65 @@ public class Paint {
 	}
 	
 	public void test_3() {
-		ComposantShape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
-		ComposantShape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
-		ComposantShape circle1 = new Circle(new Point(320, 110), 60, Color.green);
+		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
+		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
+		Shape circle1 = new Circle(new Point(320, 110), 60, Color.green);
 		
 		drawing.addShape(rectangle1);
 		drawing.addShape(rectangle2);
 		drawing.addShape(circle1);
 		
-		ComposantShape group1 = new GroupShape(drawing);
+		ShapeGroup group1 = new ShapeGroup(drawing);
 		group1.add(rectangle1);
 		group1.add(rectangle2);
 		group1.afficher();
+	}
+	
+	public void test_4() {
+		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
+		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
+		Shape circle1 = new Circle(new Point(320, 110), 60, Color.green);
+		
+		drawing.addShape(rectangle1);
+		drawing.addShape(rectangle2);
+		drawing.addShape(circle1);
+		
+		ShapeGroup group1 = new ShapeGroup(drawing);
+		group1.add(rectangle1);
+		group1.add(rectangle2);
+		
+		System.out.println("Affichage drawing 1");
+		drawing.print();
+		
+		ShapeGroup group2 = new ShapeGroup(drawing);
+		group2.add(circle1);
+		group2.add(rectangle1);
+		group2.add(rectangle1);
+		
+		System.out.println("Affichage drawing 2");
+		drawing.print();
+	}
+	
+	// Test de ShapeGroup.dissociate()	
+	public void test_5() {
+		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
+		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
+		Shape circle1 = new Circle(new Point(320, 110), 60, Color.green);
+		
+		drawing.addShape(rectangle1);
+		drawing.addShape(rectangle2);
+		drawing.addShape(circle1);
+		
+		ShapeGroup group1 = new ShapeGroup(drawing);
+		group1.add(rectangle1);
+		group1.add(rectangle2);
+		
+		System.out.println("Affichage drawing 1");
+		drawing.print();
+		
+		group1.dissociate();
+		System.out.println("Affichage drawing 2");
+		drawing.print();
 		
 	}
 	

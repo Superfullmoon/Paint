@@ -8,30 +8,30 @@ import java.awt.event.*;
 /**
  * JPanel pouvant afficher des objets de type Shape
  */
-public class Drawing extends JPanel implements Iterable<ComposantShape> {
+public class Drawing extends JPanel implements  Iterable<Shape> {
 
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<ComposantShape> shapes;
+	private ArrayList<Shape> shapes;
 	ArrayList<ObserverDrawing> ObserverDrawings;
 	
 	public Drawing(){
 		super();
-		shapes = new ArrayList<ComposantShape>();
+		shapes = new ArrayList<Shape>();
 		ObserverDrawings = new ArrayList<ObserverDrawing>();
 	}
 	
 	/**
 	 * Implémentation de l'interface Iterable<Shape>
 	 */
-	public Iterator<ComposantShape> iterator(){
+	public Iterator<Shape> iterator(){
 		return shapes.iterator();
 	}
 	
 	/**
 	 * Ajoute une forme au dessin et redessine
 	 */
-	public void addShape(ComposantShape s){
+	public void addShape(Shape s){
 		shapes.add(s);
 		this.repaint();
 		this.notifyObservers();
@@ -42,7 +42,7 @@ public class Drawing extends JPanel implements Iterable<ComposantShape> {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for(ComposantShape s : shapes){
+		for(Shape s : shapes){
 			s.paint(g);
 		}
 	}
@@ -88,5 +88,29 @@ public class Drawing extends JPanel implements Iterable<ComposantShape> {
 		for(int i=0 ; i<ObserverDrawings.size() ;i++) {
 			ObserverDrawings.get(i).update();
 		}
+	}
+	
+	public boolean isInGroup(Shape shape) {
+		for(Shape s : shapes) {
+			if(s instanceof ShapeGroup) {
+				ShapeGroup gs = (ShapeGroup) s;
+				if(gs.contains(shape)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public void print() {
+		for(Shape s : shapes) {
+			s.afficher();
+			System.out.println("------");
+		}
+	}
+	
+	public void removeShape(Shape s) {
+		shapes.remove(s);
 	}
 }

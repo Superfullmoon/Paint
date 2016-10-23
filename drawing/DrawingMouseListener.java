@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class DrawingMouseListener implements MouseMotionListener, MouseListener {
 	Drawing drawing;
-	ComposantShape currentShape = null;
+	Shape currentShape = null;
 	double deltaX;
 	double deltaY;
 	Point depart;
@@ -39,7 +39,7 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 	 * Sélectionne la forme sur laquelle l'utilisateur a cliqué
 	 */
 	public void mousePressed(MouseEvent e) {
-		for(ComposantShape cs : drawing) {
+		for(Shape cs : drawing) {
 			if(cs.isOn(e.getPoint())) {
 				this.currentShape = cs;
 				depart = e.getPoint();
@@ -52,7 +52,6 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 	 */
 	public void mouseReleased(MouseEvent e) {
 		currentShape = null;
-		
 	}
 
 	public void mouseMoved(MouseEvent e) {
@@ -60,7 +59,7 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 	}
 
 	public void mouseClicked(MouseEvent e) {
-
+		
 	}
 
 	public void mouseEntered(MouseEvent e) {

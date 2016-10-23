@@ -8,41 +8,28 @@ import java.util.ArrayList;
 /**
  * Classe abstraite de type forme dessinable.
  */
-public abstract class Shape implements ComposantShape {
-	protected Point origin;
-	protected Point center;
+public abstract class Shape {
+	protected Point center = new Point();
+	protected Point origin = new Point();
 	
-	public Point getCenter()
-	{
+	public Point getCenter() {
 		return center;
 	}
 	
-	public void setCenter(Point p)
-	{
+	public void setCenter(Point p) {
 		center = p;
 	}
 	
-	public Point getOrigin()
-	{
+	public Point getOrigin() {
 		return origin;
 	}
 	
 	public void setOrigin(Point p) {
 		origin = p;
 	}
-	
-	public void displace(double deltaX, double deltaY) {
-		// for(Iterator<ComposantShape> it = aFlavours.iterator(); it.hasNext();) {
-			// System.out.println(it.next());
-		// }
-		
-		int x = (int) (getOrigin().getX() + deltaX);
-		int y = (int) (getOrigin().getY() + deltaY);
-		
-		setOrigin(new Point(x,y));
-	}
-	
+
 	public abstract void afficher();
+	public abstract void displace(double deltaX, double deltaY);
 	
 	/**
 	 * dessine la forme sur un Graphics
@@ -53,15 +40,4 @@ public abstract class Shape implements ComposantShape {
 	 * renvoie true si la forme occupe sur le point donné
 	 */
 	public abstract boolean isOn(Point p);
-	
-	
-	public void add(ComposantShape c) {
-		throw new UnsupportedOperationException();
-	}
-	public void remove(ComposantShape c) {
-		throw new UnsupportedOperationException();
-	}
-	public ComposantShape getChild(int i) {
-		throw new UnsupportedOperationException();
-	}
 }

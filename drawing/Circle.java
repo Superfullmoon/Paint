@@ -2,7 +2,7 @@ package drawing;
 
 import java.awt.*;
 
-public class Circle extends Shape{
+public class Circle extends Shape {
 	private Color color;
 	
 	private double radius;
@@ -44,4 +44,10 @@ public class Circle extends Shape{
 		System.out.println(toString());
 	}
 
+	public void displace(double deltaX, double deltaY) {
+		int x = (int) (getOrigin().getX() + deltaX);
+		int y = (int) (getOrigin().getY() + deltaY);
+		
+		setOrigin(new Point(x,y));
+	}
 }

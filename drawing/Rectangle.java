@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Rectangle extends Shape {
-	
 	int width;
 	int height;
 	Color color;
@@ -18,8 +17,7 @@ public class Rectangle extends Shape {
 		
 		double x = origin.getX() + width/2;
 		double y = origin.getY() + height/2;
-		center = new Point();
-		center.setLocation(x, y);
+		center = new Point((int)x, (int)y);
 	}
 	
 	public int getWidth() {
@@ -28,10 +26,6 @@ public class Rectangle extends Shape {
 	
 	public int getHeight() {
 		return this.height;
-	}
-	
-	public Point getCenter() {
-		return center;
 	}
 	
 	public boolean isOn(Point p) {
@@ -59,5 +53,12 @@ public class Rectangle extends Shape {
 	
 	public void afficher() {
 		System.out.println(toString());
+	}
+	
+	public void displace(double deltaX, double deltaY) {
+		int x = (int) (getOrigin().getX() + deltaX);
+		int y = (int) (getOrigin().getY() + deltaY);
+		
+		this.setOrigin(new Point(x,y));
 	}
 }
