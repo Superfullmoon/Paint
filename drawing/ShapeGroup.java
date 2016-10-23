@@ -8,13 +8,15 @@ import java.awt.Graphics;
 
 public class ShapeGroup extends Shape  {
 	ArrayList<Shape> shapes = new ArrayList<Shape>();
-	static int id = 0;
+	static int count = 0;
+	int id;
 	
 	private Point center = new Point();
 	Drawing drawing;
 	
 	public ShapeGroup(Drawing d) {
-		this.id++;
+		this.count++;
+		this.id = count;
 		center = calculOrigin();
 		
 		this.drawing = d;
