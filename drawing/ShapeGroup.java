@@ -23,10 +23,17 @@ public class ShapeGroup extends Shape implements Iterable<Shape> {
 		drawing.addShape(this);
 	}
 	
-	public ShapeGroup(ArrayList<Shape> shapes) {
+	public ShapeGroup(Drawing d, ArrayList<Shape> shapes) {
 		for(Shape s : shapes) {
 			this.shapes.add(s);
 		}
+		
+		this.count++;
+		this.id = count;
+		center = calculOrigin();
+		
+		this.drawing = d;
+		drawing.addShape(this);
 	}
 	
 	public Iterator<Shape> iterator(){
@@ -113,10 +120,12 @@ public class ShapeGroup extends Shape implements Iterable<Shape> {
 	public Shape clone() {
 		ArrayList<Shape> sg = new ArrayList<Shape>();
 		for(Shape s : shapes) {
-			sg.add(s.clone());
+			Shape shapeClone = s.clone();
+			this.drawing.addShape(shapeClone);
+			sg.add(shapeClone);
 		}
 		
-		ShapeGroup group = new ShapeGroup(sg);
+		ShapeGroup group = new ShapeGroup(this.drawing, sg);
 		return group;
 	}
 }

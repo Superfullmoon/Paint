@@ -217,14 +217,14 @@ public class Paint {
 		Rectangle rectangle = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape circle = new Circle(new Point(320, 110), 60, Color.green);
 		
+		drawing.addShape(rectangle);
+		drawing.addShape(circle);
+		
 		ShapeGroup group = new ShapeGroup(drawing);
 		group.add(rectangle);
 		group.add(circle);
 		
 		Shape cloneGroup = group.clone();
-		
-		drawing.addShape(group);
-		drawing.addShape(cloneGroup);
 		
 		drawing.print();
 	}
