@@ -61,4 +61,15 @@ public class Rectangle extends Shape {
 		
 		this.setOrigin(new Point(x,y));
 	}
+	
+	public Shape clone() {
+		Point origin = new Point((int)this.getOrigin().getX()+6, (int)this.getOrigin().getY()+6);
+		int width = this.width;
+		int height = this.height;
+		Color color = this.color;
+		
+		Rectangle rectangle = new Rectangle(origin, width, height, color);
+		
+		return rectangle;
+	}
 }

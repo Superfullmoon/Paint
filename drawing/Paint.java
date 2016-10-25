@@ -66,7 +66,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU1
-		this.test_5();
+		this.test_7();
 	}
 	
 	// Test pour vérifier la fonction calculOrigin()
@@ -194,6 +194,39 @@ public class Paint {
 		group2.add(rectangle2);
 		group2.add(group1);
 		group2.afficher();
+	}
+	
+	// Test pour le clonage sur les formes simples
+	public void test_6() {
+		Rectangle rectangle = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
+		Shape circle = new Circle(new Point(320, 110), 60, Color.green);
+		
+		Shape cloneRectangle = rectangle.clone();
+		Shape cloneCircle = circle.clone();
+		
+		drawing.addShape(rectangle);
+		drawing.addShape(circle);
+		drawing.addShape(cloneRectangle);
+		drawing.addShape(cloneCircle);
+		
+		drawing.print();
+	}
+	
+	// Test pour le clonage sur les groupes de formes
+	public void test_7() {
+		Rectangle rectangle = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
+		Shape circle = new Circle(new Point(320, 110), 60, Color.green);
+		
+		ShapeGroup group = new ShapeGroup(drawing);
+		group.add(rectangle);
+		group.add(circle);
+		
+		Shape cloneGroup = group.clone();
+		
+		drawing.addShape(group);
+		drawing.addShape(cloneGroup);
+		
+		drawing.print();
 	}
 	
 	public static void main(String[] args){

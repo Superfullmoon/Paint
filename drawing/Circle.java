@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class Circle extends Shape {
 	private Color color;
-	
 	private double radius;
 	
 	public Circle(Point origin, double radius, Color color){
@@ -49,5 +48,15 @@ public class Circle extends Shape {
 		int y = (int) (getOrigin().getY() + deltaY);
 		
 		setOrigin(new Point(x,y));
+	}
+	
+	public Shape clone() {
+		Point origin = new Point((int)this.getOrigin().getX()+6, (int)this.getOrigin().getY()+6);
+		double radius = this.radius;
+		Color color = this.color;
+		
+		Circle circle = new Circle(origin, radius, color);
+		
+		return circle;
 	}
 }

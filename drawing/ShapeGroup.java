@@ -109,4 +109,14 @@ public class ShapeGroup extends Shape implements Iterable<Shape> {
 	public void dissociate() {
 		drawing.removeShape(this);
 	}
+	
+	public Shape clone() {
+		ArrayList<Shape> sg = new ArrayList<Shape>();
+		for(Shape s : shapes) {
+			sg.add(s.clone());
+		}
+		
+		ShapeGroup group = new ShapeGroup(sg);
+		return group;
+	}
 }
