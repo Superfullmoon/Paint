@@ -56,10 +56,11 @@ public class Drawing extends JPanel implements  Iterable<Shape> {
 		this.notifyObservers();
 	}
 	
+	//
 	public int countRectangle() {
 		int count = 0;
-		for(Shape s : shapes) {
-			if(s instanceof Rectangle) {
+		for(int i=0 ; i<shapes.size() ; i++) {
+			if(shapes.get(i) instanceof Rectangle) {
 				count++;
 			}
 		}
@@ -68,8 +69,8 @@ public class Drawing extends JPanel implements  Iterable<Shape> {
 	
 	public int countCircle() {
 		int count = 0;
-		for(Shape s : shapes) {
-			if(s instanceof Circle) {
+		for(int i=0 ; i<shapes.size() ; i++) {
+			if(shapes.get(i) instanceof Circle) {
 				count++;
 			}
 		}
@@ -87,6 +88,19 @@ public class Drawing extends JPanel implements  Iterable<Shape> {
 		for(int i=0 ; i<ObserverDrawings.size() ;i++) {
 			ObserverDrawings.get(i).update();
 		}
+	}
+	
+	public boolean isInGroup(Shape shape) {
+		for(Shape s : shapes) {
+			if(s instanceof ShapeGroup) {
+				ShapeGroup gs = (ShapeGroup) s;
+				if(gs.contains(shape)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public void print() {

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.awt.Color;
 
 /**
  * Classe abstraite de type forme dessinable.
@@ -42,4 +43,35 @@ public abstract class Shape {
 	public abstract boolean isOn(Point p);
 	
 	public abstract Shape clone();
+	
+	/** 
+	 * Création des formes grâce à l'introspection
+	 *
+	*/
+	public static Shape create(String type, Object args[]) {
+		Shape shape = null;
+		
+		if(type == "rectangle") {
+			Point origin = (Point) args[0];
+			int width = (int) args[1];
+			int height = (int) args[2];
+			Color color = (Color) args[3];
+			
+			shape = new Rectangle(origin, width, height, color);
+		} else if(type == "circle") {
+			Point origin = (Point) args[0];
+			double radius = (double) args[1];
+			Color color = (Color) args[2];
+			
+			shape = new Circle(origin, radius, color);
+		}
+		
+		return shape;
+	}
 }
+
+
+
+
+
+
