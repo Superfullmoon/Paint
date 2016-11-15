@@ -97,9 +97,22 @@ public class Drawing extends JPanel implements  Iterable<Shape> {
 				if(gs.contains(shape)) {
 					return true;
 				}
+			} else if (s instanceof Shape) {
+				if(this.contains(shape)) {
+					return true;
+				}
 			}
 		}
 		
+		return false;
+	}
+	
+	public boolean contains(Shape shape) {
+		for(Shape s : shapes) {
+			if(s == shape) {
+				return true;
+			}
+		}
 		return false;
 	}
 	

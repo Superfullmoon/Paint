@@ -66,7 +66,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU
-		this.test_8();
+		this.test_9();
 	}
 	
 	// Test pour vérifier la fonction calculOrigin()
@@ -244,6 +244,29 @@ public class Paint {
 		Shape cloneGroup = group.clone();
 		
 		drawing.print();
+	}
+	
+	// test pour la création de formes depuis les commandes
+	public void test_9() {
+		Object[] rectangle = new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red};		
+		Shape circle = Shape.create("circle", new Object[]{new Point(320, 110), 60.0, Color.green});
+		
+		CommandFactory invoker = CommandFactory.init();
+		
+		invoker.executeCommand("1", rectangle);
+		invoker.executeCommand("1", new Object[]{drawing, circle});
+		
+		invoker.printHistory(); // 2 commandes et pointage vers la 2e
+		invoker.undo(); // retrait du cercle
+		invoker.printHistory(); // 2 commandes et pointage vers la 1re
+		invoker.redo(); // rajout du cercle
+		invoker.printHistory(); // 2 commandes et pointage vers la 2e
+		
+		Object[] blueRectangle = new Object[]{drawing, "rectangle", new Point(50, 40), 200, 200, Color.blue};
+		
+		invoker.undo(); // retrait du cercle
+		invoker.executeCommand("1", blueRectangle); // ajout du rectangle bleu
+		invoker.printHistory(); // 2 commandes et pointage vers la 2e
 	}
 	
 	public static void main(String[] args){
