@@ -50,7 +50,6 @@ public class CommandFactory {
 			System.out.println("  " + history.get(i));
 		}
 		System.out.println("Position courante : " + this.current);
-		
 	}
 	
 	public void undo() {
@@ -71,6 +70,7 @@ public class CommandFactory {
 		CommandFactory cf = new CommandFactory();
 		
 		cf.addCommand("1", new CommandShapeCreation());
+		cf.addCommand("2", new CommandShapeAssociate());
 		
 		return cf;
 	}

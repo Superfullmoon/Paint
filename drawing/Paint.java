@@ -66,7 +66,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU
-		this.test_9();
+		this.test_10();
 	}
 	
 	// Test pour vérifier la fonction calculOrigin()
@@ -193,7 +193,9 @@ public class Paint {
 		group2.add(circle1);
 		group2.add(rectangle2);
 		group2.add(group1);
-		group2.afficher();
+		//group2.afficher();
+		
+		drawing.print();
 	}
 	
 	// Test pour le clonage sur les formes simples
@@ -267,6 +269,20 @@ public class Paint {
 		invoker.undo(); // retrait du cercle
 		invoker.executeCommand("1", blueRectangle); // ajout du rectangle bleu
 		invoker.printHistory(); // 2 commandes et pointage vers la 2e
+	}
+	
+	public void test_10() {		
+		Shape circle = Shape.create("circle", new Object[]{new Point(320, 110), 60.0, Color.green});
+		
+		CommandFactory invoker = CommandFactory.init();
+		
+		invoker.executeCommand("1", new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red});
+		invoker.executeCommand("1", new Object[]{drawing, circle});
+
+		
+		invoker.executeCommand("2", new Object[]{drawing, drawing.getShape(0), drawing.getShape(1)});
+		
+		invoker.printHistory();
 	}
 	
 	public static void main(String[] args){

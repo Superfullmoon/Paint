@@ -21,6 +21,10 @@ public class Drawing extends JPanel implements  Iterable<Shape> {
 		ObserverDrawings = new ArrayList<ObserverDrawing>();
 	}
 	
+	public Shape getShape(int id) {
+		return this.shapes.get(id);
+	}
+	
 	/**
 	 * Implémentation de l'interface Iterable<Shape>
 	 */
