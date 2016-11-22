@@ -69,7 +69,9 @@ public class Paint {
 		this.test_10();
 	}
 	
-	// Test pour vérifier la fonction calculOrigin()
+	/**
+	 * Test pour vérifier la fonction de calcul de l'origine
+	 * */
 	public void test_1() {
 		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
@@ -96,7 +98,9 @@ public class Paint {
 		
 	}
 	
-	// Test pour vérifier que la fonction d'ajout d'un Shape ne permet pas les doublons
+	/**
+	 * Test pour vérifier l'unicité d'une même forme (référence) au sein d'un groupe de formes
+	 * */
 	public void test_2() {
 		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
@@ -127,7 +131,9 @@ public class Paint {
 		group1.afficher();
 	}
 	
-	// Test sur le groupement de formes
+	/**
+	 * Test sur le groupement de formes
+	 * */
 	public void test_3() {
 		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
@@ -153,7 +159,9 @@ public class Paint {
 		drawing.print();
 	}
 	
-	// Test de ShapeGroup.dissociate()	
+	/**
+	 * Test sur le dégroupement des formes
+	 * */	
 	public void test_4() {
 		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
@@ -175,7 +183,18 @@ public class Paint {
 		drawing.print();
 	}
 	
-	// Test pour associer deux groupes
+	/**
+	 * Test sur le groupement de deux groupes
+	 * Scénario :
+	 * - Création de trois formes :  S1, S2 et S3
+	 * - Création de deux groupes : 
+	 * 		G1 = S1 + S2
+	 * 		G2 = S2 + S3 + G1
+	 *	
+	 * Résultat attendu :
+	 * - G2 = S1 + S2 + S3
+	 * Le groupe S2 est composé de formes simples et uniques.
+	 * */
 	public void test_5() {
 		Shape rectangle1 = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape rectangle2 = new Rectangle(new Point(190, 200), 50, 150, Color.red);
@@ -198,7 +217,11 @@ public class Paint {
 		drawing.print();
 	}
 	
-	// Test pour le clonage sur les formes simples
+	/**
+	 * Test sur le clonage de formes simples
+	 * Résultat attendu :
+	 * - le drawing contient 4 formes
+	 * */
 	public void test_6() {
 		Rectangle rectangle = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape circle = new Circle(new Point(320, 110), 60, Color.green);
@@ -214,7 +237,11 @@ public class Paint {
 		drawing.print();
 	}
 	
-	// Test pour le clonage sur les groupes de formes
+	/**
+	 * Test sur le clonage des groupes de formes
+	 * Résultat attendu :
+	 * - 4 formes attachées au drawing (2 formes + 2 groupes dont 1 issu du clonage)
+	 * */
 	public void test_7() {
 		Shape rectangle = new Rectangle(new Point(50, 40), 200, 200, Color.blue);
 		Shape circle = new Circle(new Point(320, 110), 60, Color.green);
@@ -231,7 +258,10 @@ public class Paint {
 		drawing.print();
 	}
 	
-	// Test sur la fabrique d'une forme : Shape.create
+	/**
+	 * Test pour créer une forme depuis la méthode statique
+	 * 
+	 * */
 	public void test_8() {
 		Shape rectangle = Shape.create("rectangle", new Object[]{new Point(190, 200), 50, 150, Color.red});
 		Shape circle = Shape.create("circle", new Object[]{new Point(320, 110), 60.0, Color.green});
@@ -248,7 +278,12 @@ public class Paint {
 		drawing.print();
 	}
 	
-	// test pour la création de formes depuis les commandes
+	/**
+	 * Test pour la commande de création de formes
+	 * Résultat attendu :
+	 * - 2 commandes dans l'historique
+	 * - indice courant de l'historique vaut 1
+	 * */
 	public void test_9() {
 		Object[] rectangle = new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red};		
 		Shape circle = Shape.create("circle", new Object[]{new Point(320, 110), 60.0, Color.green});
@@ -271,18 +306,25 @@ public class Paint {
 		invoker.printHistory(); // 2 commandes et pointage vers la 2e
 	}
 	
+	/**
+	 * Test pour la commande de groupement de formes
+	 * Résultat attendu :
+	 * - 3 commandes dans l'historique
+	 * - 3 formes (2 formes et 1 groupe) dans le drawing
+	 * - l'indice courant de l'historique vaut 2 (pointe vers la commande 3)
+	 * */
 	public void test_10() {		
-		Shape circle = Shape.create("circle", new Object[]{new Point(320, 110), 60.0, Color.green});
-		
 		CommandFactory invoker = CommandFactory.init();
 		
 		invoker.executeCommand("1", new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red});
+		
+		Shape circle = Shape.create("circle", new Object[]{new Point(320, 110), 60.0, Color.green});
 		invoker.executeCommand("1", new Object[]{drawing, circle});
-
 		
 		invoker.executeCommand("2", new Object[]{drawing, drawing.getShape(0), drawing.getShape(1)});
 		
 		invoker.printHistory();
+		drawing.print();
 	}
 	
 	public static void main(String[] args){
