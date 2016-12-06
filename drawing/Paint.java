@@ -25,7 +25,7 @@ public class Paint {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel(new BorderLayout());
 		
-		drawing = new Drawing();
+		drawing = new DrawingImpl();
 		drawing.setBackground(Color.WHITE);
 		clearButton = new JButton("Clear");
 		circleButton = new JButton("Circle");
@@ -55,7 +55,6 @@ public class Paint {
 		circleButton.addActionListener(new CircleButtonListener(drawing));
 		rectangleButton.addActionListener(new RectangleButtonListener(drawing));
 		
-		
 		//listeners pour la zone de dessin
 		DrawingMouseListener l = new DrawingMouseListener(drawing);
 		drawing.addMouseListener(l);
@@ -66,7 +65,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU
-		this.test_14();
+		this.test_15();
 	}
 	
 	/**
@@ -396,6 +395,22 @@ public class Paint {
 		invoker.executeCommand("4", new Object[]{drawing, drawing.getShape(2), "text"});
 		invoker.printHistory();
 	 }
+	 
+	 /**
+	  * Test proxy
+	  * Résultat attendu :
+	  * - 1 rectangle (la création du cercle est bloquée par le proxy)
+	  * */
+	  public void test_15() {
+		  Drawing proxy = new DrawingProxy(drawing);
+		  CommandFactory invoker = CommandFactory.init();
+		  
+		  invoker.executeCommand("1", new Object[]{drawing, "rectangle", new Point(190, 200), 150, 150, Color.red});
+		  
+		  drawing = proxy;
+		  
+		  invoker.executeCommand("1", new Object[]{drawing, "circle", new Point(320, 110), 60.0, Color.green});
+	  }
 	
 	public static void main(String[] args){
 		Paint app = new Paint();
