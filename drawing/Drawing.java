@@ -25,6 +25,18 @@ public class Drawing extends JPanel implements  Iterable<Shape> {
 		return this.shapes.get(id);
 	}
 	
+	public void setShape(Shape s1, Shape s2) {
+		this.removeShape(s1);
+		this.addShape(s2);
+		/*
+		for(Shape s : shapes) {
+			if(s == s1) {
+				System.out.println(s1);
+				s = s2;
+			}
+		}*/
+	}
+	
 	/**
 	 * Implémentation de l'interface Iterable<Shape>
 	 */

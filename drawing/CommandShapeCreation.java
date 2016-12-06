@@ -21,6 +21,7 @@ public class CommandShapeCreation implements Command {
 	public void init(Object[] args) {
 		this.drawing = (Drawing) args[0];
 		
+		
 		if(args[1] instanceof Shape) {
 			this.shape = (Shape) args[1];
 		} else {
@@ -36,17 +37,32 @@ public class CommandShapeCreation implements Command {
 	}
 	
 	/**
+	 * Analyse les arguments et lève des exceptions
+	 * 
+	public void parser(Object[] args) throws ParserException {
+		try {
+			
+		} catch (ParserException e) {
+			
+		}
+	}
+	* */
+	
+	/**
 	 * Exécute l'action à effectuer en fonction de l'état antérieur :
 	 * attaché au drawing : retrait
 	 * détaché du drawing : ajout
 	 */
 	public void executer() {
-		boolean attach = false;
 		if(drawing.isInGroup(shape)) {
 			drawing.removeShape(shape);
 		} else {
 			drawing.addShape(shape);
 		}
+	}
+	
+	public Shape getShape() {
+		return shape;
 	}
 	
 	public Command copy() {

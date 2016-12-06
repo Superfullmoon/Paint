@@ -3,8 +3,9 @@ package drawing;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 
-public class CommandFactory {
+public class CommandFactory implements Iterable<Command> {
 	private HashMap<String, Command> commands;
 	private ArrayList<Command> history;
 	private int current;
@@ -15,6 +16,10 @@ public class CommandFactory {
 		this.current = -1;
 	}
 	
+	public Iterator<Command> iterator(){
+		return history.iterator();
+	}
+	
 	public void addCommand(String name, Command command) {
 		this.commands.put(name, command);
 	}
@@ -22,7 +27,10 @@ public class CommandFactory {
 	public void executeCommand(String name, Object[] args) {
 		if(this.commands.containsKey(name)) {
 			Command command = this.commands.get(name).copy();
+			
+			// gestion de l'exception ici
 			command.init(args);
+			
 			this.executer(command);
 		}
 	}
@@ -71,6 +79,8 @@ public class CommandFactory {
 		
 		cf.addCommand("1", new CommandShapeCreation());
 		cf.addCommand("2", new CommandShapeAssociate());
+		cf.addCommand("3", new CommandShapeClone());
+		cf.addCommand("4", new CommandShapeText());
 		
 		return cf;
 	}

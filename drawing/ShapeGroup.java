@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.awt.Graphics;
 
 public class ShapeGroup extends Shape implements Iterable<Shape> {
-	ArrayList<Shape> shapes = new ArrayList<Shape>();	// Utilisation d'un hashset ?
+	ArrayList<Shape> shapes = new ArrayList<Shape>();
 	static int count = 0;
 	int id;
 	

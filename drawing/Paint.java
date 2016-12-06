@@ -2,7 +2,7 @@ package drawing;
 
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -66,7 +66,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU
-		this.test_10();
+		this.test_13();
 	}
 	
 	/**
@@ -282,7 +282,7 @@ public class Paint {
 	 * Test pour la commande de création de formes
 	 * Résultat attendu :
 	 * - 2 commandes dans l'historique
-	 * - indice courant de l'historique vaut 1
+	 * - indice courant de l'historique vaut 1 (pointe vers la commande 2)
 	 * */
 	public void test_9() {
 		Object[] rectangle = new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red};		
@@ -311,7 +311,7 @@ public class Paint {
 	 * Résultat attendu :
 	 * - 3 commandes dans l'historique
 	 * - 3 formes (2 formes et 1 groupe) dans le drawing
-	 * - l'indice courant de l'historique vaut 2 (pointe vers la commande 3)
+	 * - l'indice courant de l'historique vaut 2
 	 * */
 	public void test_10() {		
 		CommandFactory invoker = CommandFactory.init();
@@ -327,8 +327,75 @@ public class Paint {
 		drawing.print();
 	}
 	
+	/**
+	 * Test pour la commande de création d'un clone
+	 * Résultat attendu :
+	 * - 4 formes (2 rectangles et 2 cercles) dans le drawing
+	 * */
+	 public void test_11() {
+		CommandFactory invoker = CommandFactory.init();
+		
+		invoker.executeCommand("1", new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red});
+		invoker.executeCommand("3", new Object[]{drawing, drawing.getShape(0)});
+		
+		Shape circle = Shape.create("circle", new Object[]{new Point(320, 110), 60.0, Color.green});
+		invoker.executeCommand("1", new Object[]{drawing, circle});
+		invoker.executeCommand("3", new Object[]{drawing, "circle", new Point(320, 110), 60.0, Color.green});
+		
+		drawing.print();
+	 }
+	 
+	 /**
+	  * Test pour le clonage d'un groupe
+	  * Résultat attendu : 
+	  * - 2 formes liées (rectangle + cercle) au sein d'un même groupe
+	 */
+	 public void test_12() {
+		CommandFactory invoker = CommandFactory.init();
+		
+		invoker.executeCommand("1", new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red});
+		invoker.executeCommand("1", new Object[]{drawing, "circle", new Point(320, 110), 60.0, Color.green});
+		
+		invoker.executeCommand("2", new Object[]{drawing, drawing.getShape(0), drawing.getShape(1)});
+
+		invoker.executeCommand("3", new Object[]{drawing, drawing.getShape(2)});
+		drawing.print();
+	 }
+	 
+	 /**
+	  * Test pour la commande décoration d'une forme simple
+	  * Résultat attendu :
+	  * - Deux formes (rectangle + cercle) avec un texte "text" sur le cercle
+	 */
+	 public void test_13() {
+		CommandFactory invoker = CommandFactory.init();
+		
+		invoker.executeCommand("1", new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red});
+		invoker.executeCommand("1", new Object[]{drawing, "circle", new Point(320, 110), 60.0, Color.green});
+		
+		invoker.executeCommand("4", new Object[]{drawing, drawing.getShape(1), "text"});
+		drawing.getShape(1).afficher();
+		System.out.println(Paint.toIdentityString(drawing.getShape(1)));
+	 }
+	 
+	 /**
+	  * Test pour la commande décoration d'un groupe de formes
+	  * Résultat attendu :
+	  * - Levé d'une exception sur la décoration du groupe
+	 */
+	 public void test_14() {
+		
+	 }
+	
 	public static void main(String[] args){
 		Paint app = new Paint();
 		app.run();
 	}
+	
+	public static String toIdentityString(Object o) {
+        if (o==null) {
+            return "null";
+        }
+        return o.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(o));
+    }
 }

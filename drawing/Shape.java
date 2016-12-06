@@ -45,8 +45,7 @@ public abstract class Shape {
 	public abstract Shape clone();
 	
 	/** 
-	 * Création des formes grâce à l'introspection
-	 *
+	 * Création des formes
 	*/
 	public static Shape create(String type, Object args[]) {
 		Shape shape = null;
@@ -69,9 +68,5 @@ public abstract class Shape {
 		return shape;
 	}
 }
-
-
-
-
 
 
