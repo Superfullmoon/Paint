@@ -24,14 +24,16 @@ public class CommandFactory implements Iterable<Command> {
 		this.commands.put(name, command);
 	}
 	
-	public void executeCommand(String name, Object[] args) {
+	public void executeCommand(String name, Object[] args)  {
 		if(this.commands.containsKey(name)) {
 			Command command = this.commands.get(name).copy();
 			
-			// gestion de l'exception ici
-			command.init(args);
-			
-			this.executer(command);
+			try {
+				command.init(args);
+				this.executer(command);
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 	

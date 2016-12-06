@@ -66,7 +66,7 @@ public class Paint {
 		frame.setVisible(true);
 		
 		// TU
-		this.test_13();
+		this.test_14();
 	}
 	
 	/**
@@ -381,10 +381,20 @@ public class Paint {
 	 /**
 	  * Test pour la commande décoration d'un groupe de formes
 	  * Résultat attendu :
-	  * - Levé d'une exception sur la décoration du groupe
+	  * - Levée d'une exception sur la décoration du groupe
+	  * - Levée d'une exception sur l'initialisation d'une commande
+	  * - 3 commandes dans l'historique (2 créations + 1 association)
 	 */
 	 public void test_14() {
+		CommandFactory invoker = CommandFactory.init();
 		
+		invoker.executeCommand("1", new Object[]{drawing, "rectangle", new Point(190, 200), 50, 150, Color.red});
+		invoker.executeCommand("1", new Object[]{drawing, "circle", new Point(320, 110), 60.0, Color.green});
+		
+		invoker.executeCommand("2", new Object[]{drawing, drawing.getShape(0), drawing.getShape(1)});
+		
+		invoker.executeCommand("4", new Object[]{drawing, drawing.getShape(2), "text"});
+		invoker.printHistory();
 	 }
 	
 	public static void main(String[] args){

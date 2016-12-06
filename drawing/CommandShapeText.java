@@ -7,12 +7,13 @@ public class CommandShapeText implements Command {
 	Drawing drawing;
 	
 	public CommandShapeText() {
+
 	}
 	
 	public CommandShapeText(CommandShapeText c) {
 	}
 	
-	public void init(Object[] args) {
+	public void init(Object[] args) throws Exception {
 		this.drawing = (Drawing) args[0];
 		this.shape = (Shape) args[1];
 		this.text = (String) args[2];
@@ -24,6 +25,7 @@ public class CommandShapeText implements Command {
 			System.out.println(Paint.toIdentityString(decorate));
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
+			throw new Exception("Commande non initialisee");
 		}
 	}
 	
